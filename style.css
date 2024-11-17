@@ -1,18 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Modak&family=Ultra&display=swap');
+
 body {
+    margin: 0; 
+    font-family: "Ultra", serif;
+}
+
+.container {
     display: flex;
+    flex-direction: column;
     justify-content: center; 
     align-items: center; 
     background: rgb(26, 24, 24);
     height: 100vh;
     margin: 0; 
+    font-family: "Ultra", serif;
+    position: relative; 
 }
 
 .wordle {
     display: flex;
-    border: 3px solid black;
     border-radius: 15px;
-    width: 40vw; 
-    height: 40vw; 
     flex-direction: column;
     background-color: rgb(117, 117, 117);
     overflow-x: hidden;
@@ -37,7 +44,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 4em;
     flex: 1;
     border-left: 0.5px solid black;
     border-right: 0.5px solid black;
@@ -55,22 +61,94 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 4em;
     flex: 1;
     border: 1px solid black;
 }
 
 .valid {
-    background-color: green;
-    transition: all 0.5s ease;
+    background-color: #30c230; 
+    color: black; 
+    transition: background-color 0.5s ease, transform 0.3s ease;
+    animation: pop 0.4s ease-in-out;
 }
 
 .almost {
-    background-color: rgb(255, 166, 0);
-    transition: all 0.5s ease;
+    background-color: #f7d40f; 
+    color: black; 
+    transition: background-color 0.5s ease, transform 0.3s ease;
 }
 
 .fail {
-    background-color: rgb(255, 0, 0);
-    transition: all 0.5s ease;
+    background-color: #ec2828; 
+    color: black; 
+    transition: background-color 0.5s ease, transform 0.3s ease;
+}
+
+.option {
+    position: absolute; 
+    transition: all 0.3s ease;
+}
+
+.option:hover {
+    cursor: pointer;
+    transform: scale(1.085) rotate(180deg);
+}
+
+.option>img {
+    width: 100%;
+    height: 100%;
+}
+
+@media (orientation: landscape) {
+    .input-case {
+        font-size: 6vh;
+    }
+
+    .row-case {
+        font-size: 6vh;
+    }
+
+    .wordle {
+        width: 60vh; 
+        height: 60vh; 
+        border: 0.5vh solid black;
+    }
+
+    .option {
+        top: 1vh; 
+        right: 1vh; 
+        width: 5vh;
+        height: 5vh;
+    }
+}
+  
+@media (orientation: portrait) {
+    .input-case {
+        font-size: 6vw;
+    }
+
+    .row-case {
+        font-size: 6vw;
+    }
+
+    .wordle {
+        width: 60vw; 
+        height: 60vw; 
+        border: 0.5vw solid black;
+    }
+
+    .option {
+        top: 1vw; 
+        right: 1vw; 
+        width: 5vw;
+        height: 5vw;
+    }
+}
+
+@keyframes pop {
+    0% { transform: scale(0.8); }
+    30% { transform: scale(1.2); }
+    50% { transform: scale(1); }
+    70% { transform: scale(1.1); }
+    100% { transform: scale(1); }
 }

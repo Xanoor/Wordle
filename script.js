@@ -94,6 +94,8 @@ async function setNewRow() {
         canPlay = false
     } else if (lettersFound == 5) {
         canPlay = false
+    } else {
+        setIndicator()
     }
 }
 
@@ -108,6 +110,7 @@ function resetInput() {
     for (i=4; i>=0; i--) {
         inputCases[i].innerText = ""
     }
+    setIndicator()
 }
 
 addEventListener("keydown", (event) => {
@@ -116,6 +119,7 @@ addEventListener("keydown", (event) => {
             inputCases[wordStep-1].innerText = ""
             word = word.slice(0, -1)
             wordStep--
+            setIndicator()
         }
     }
     if (event.key == "Enter") {
@@ -136,10 +140,22 @@ addEventListener("keydown", (event) => {
 
 
 addEventListener("keypress", (event) => {
-    if (wordStep < inputCases.length && event.key.length == 1 && canPlay) {
+    if (wordStep < inputCases.length && event.key.length == 1 && canPlay && event.key != "_") {
         inputCases[wordStep].innerText = event.key.toUpperCase()
         word+=event.key.toUpperCase()
         wordStep++
+        setIndicator()
     }
 });
 
+function setIndicator() {
+    for (i=0; i<5; i++) {
+        if (i == wordStep) {
+            inputCases[i].innerText = "_"
+        } else if (inputCases[i].innerText =="_") {
+            inputCases[i].innerText = ""
+        }
+    }
+}
+
+setIndicator()
