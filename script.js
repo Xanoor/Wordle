@@ -13,12 +13,13 @@ var gameData = {
 var wordleGridElements = {
     gridCases: {},
     inputCases: [],
+    revealCases: [],
     row: 0
 }
 
 
 for (i=0; i<5; i++) {
-    wordleGridElements.inputCases.push(document.getElementById("wordStep"+i))
+    wordleGridElements.revealCases.push(document.getElementById("reveal"+i))
 }
 
 function setNewValue() {
@@ -29,10 +30,10 @@ function setNewValue() {
     }
 }
 
-getActualRow()
+createRows()
 setIndicator()
 
-function getActualRow() {
+function createRows() {
     for (i=0; i<5; i++) {
         _row = document.getElementById('row'+i)
         wordleGridElements.gridCases["row"+i] = []
@@ -44,6 +45,7 @@ function getActualRow() {
             wordleGridElements.gridCases["row"+i].push(_case)
         }
     }
+    getNewRow()
 }
 
 function clearCases() {
@@ -58,7 +60,6 @@ function clearCases() {
 }
 
 async function setNewRow() {
-    resetInput();
     gameData.lettersFound = 0
     for (let i = 0; i < gameData.word.length; i++) {
         if (gameData.wordToFind[i] == gameData.word[i]) {
@@ -85,23 +86,25 @@ async function setNewRow() {
     } else if (gameData.lettersFound == 5) {
         gameData.canPlay = false
     } else {
+        getNewRow()
         setIndicator()
+    }
+}
+
+function getNewRow() {
+    wordleGridElements.inputCases = []
+    for (i=0; i<5; i++) {
+        wordleGridElements.inputCases.push(wordleGridElements.gridCases["row"+wordleGridElements.row][i])
     }
 }
 
 async function reveal() {
     for (i=0; i<5; i++) {
-        wordleGridElements.inputCases[i].innerText = gameData.wordToFind[i]
+        wordleGridElements.revealCases[i].innerText = gameData.wordToFind[i]
         await new Promise(resolve => setTimeout(resolve, 200));
     }
 }
 
-function resetInput() {
-    for (i=4; i>=0; i--) {
-        wordleGridElements.inputCases[i].innerText = ""
-    }
-    setIndicator()
-}
 
 addEventListener("keydown", (event) => {
     if (event.key == "Backspace" && gameData.canPlay) {
@@ -116,7 +119,6 @@ addEventListener("keydown", (event) => {
         if (gameData.word.length == 5 && gameData.canPlay) {
             setNewRow()
         } else if (!gameData.canPlay) {
-            resetInput()
             clearCases()
             gameData.wordStep = 0
             wordleGridElements.row = 0
