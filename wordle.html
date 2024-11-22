@@ -6,11 +6,20 @@
     <link href='style.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
-    <div class="container">
-        <div class="option">
-            <img src="https://img.icons8.com/external-bearicons-detailed-outline-bearicons/64/FFFFFF/external-Option-audio-and-video-bearicons-detailed-outline-bearicons.png" alt="external-Option-audio-and-video-bearicons-detailed-outline-bearicons"/>
-        </div>
-        <div class="wordle">
+    <header>
+        <p id="playAgain">Press Enter to play again !</p>
+    </header>
+    <main>
+        <aside>
+            <div class="option">
+                <img onclick="option()" src="https://img.icons8.com/external-bearicons-detailed-outline-bearicons/64/FFFFFF/external-Option-audio-and-video-bearicons-detailed-outline-bearicons.png" alt="Option button"/>
+            </div>
+            <div id="option-menu">
+                <label for="switchMode">Number mode</label>
+                <input name="switchMode" id="switchMode" type="checkbox" onchange="switchMode(this)">
+            </div>
+        </aside>
+        <section class="wordle">
             <div class="grid">
                 <div class="row" id="row0"></div>
                 <div class="row" id="row1"></div>
@@ -18,17 +27,15 @@
                 <div class="row" id="row3"></div>
                 <div class="row" id="row4"></div>
             </div>
-        </div>
-        <div class="reveal-section">
+        </section>
+        <section class="reveal-section">
             <div id="reveal0"></div>
             <div id="reveal1"></div>
             <div id="reveal2"></div>
             <div id="reveal3"></div>
             <div id="reveal4"></div>
-        </div>
-    </div>
-    
-
+        </section>
+    </main>
 </body>
 <script src='words.js'></script>
 <script src='script.js'></script>
